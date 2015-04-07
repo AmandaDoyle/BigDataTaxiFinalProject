@@ -2,6 +2,7 @@ import shapefile
 import csv
 import pyproj as pp
 import sys
+import matplotlib.pyplot as plt
 
 def convertToMap(planeVertexes):
 
@@ -25,9 +26,14 @@ def convertToMap(planeVertexes):
     # print newPoints
     # print len(newPoints)
     # print len(set(newPoints))
-    for point in set(newPoints):
-    	point = eval(point)
-    	print str(point[0]) + ' ' + str(point[1])
+    # for point in set(newPoints):
+    #     point = eval(point)
+    #     print str(point[0]) + ' ' + str(point[1])
+
+    fig = plt.figure()
+    ax=fig.add_subplot(111)
+    ax.scatter(lats, lngs, marker = 'o', c = 'blue', alpha=0.5, edgecolors='none')
+    plt.show()
     #return (loc[1],loc[0])
 
 def zipBorough(zipfile):
@@ -54,8 +60,7 @@ def intersections(shapefilename, zipcodes):
     record_index = 0
     list_lat = []
     list_lng = []
-    lngs_to_keep = []
-    lats_to_keep = []
+
     
     for s in dat.iterRecords():
         zipcode = s[6]
@@ -65,27 +70,21 @@ def intersections(shapefilename, zipcodes):
             points = shape.points
 
             lngs = [p[0] for p in points]
-            #print lngs[0]
-            # lngs_to_keep.append(lngs[0])
-            # lngs_to_keep.append(lngs[-1])
+
 
             lats = [p[1] for p in points]
-            #print lats[0]
-            # lats_to_keep.append(lats[0])
-            # lats_to_keep.append(lats[-1])
-        # print 'lngs'
-        # print lngs
-        # print 'lats' 
-        # print lats
 
-            # list_lat.extend(lats_to_keep)
+
+
+
+            #list_lat.extend(lats)
             list_lng.append(lngs[0])
-            list_lng.append(lngs[-1])
+            #list_lng.append(lngs[-1])
             list_lat.append(lats[0])
-            list_lat.append(lats[-1])
+            #list_lat.append(lats[-1])
 
 
-            # list_lng.extend(lngs_to_keep)
+            #list_lng.extend(lngs)
         record_index+=1
 
     #print 'finished with intersections'
