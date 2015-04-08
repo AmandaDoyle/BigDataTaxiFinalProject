@@ -10,7 +10,7 @@ def convertToMap(planeVertexes):
     f2m = 0.3048006096012192
     lngs = planeVertexes['lngs']
     lats = planeVertexes['lats']
-    newPoints = []
+    newPoints = {}
     for i in range(len(lngs)):
         lng = lngs[i]
         lat = lats[i]
@@ -20,7 +20,14 @@ def convertToMap(planeVertexes):
         point = (loc[1], loc[0])
         point = str(point)
         #print point
-        newPoints.append(point)
+        if point in newPoints:
+            newPoints[point]+=1
+        else:
+            newPoints[point] = 1
+
+    for k, v in newPoints.items():
+        if v > 1:
+            print k
         
     
     # print newPoints
