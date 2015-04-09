@@ -11,13 +11,15 @@ def convertToMap(planeVertexes):
     lngs = planeVertexes['lngs']
     lats = planeVertexes['lats']
     newPoints = {}
+    lngs_to_plot = []
+    lats_to_plot = []
     for i in range(len(lngs)):
         lng = lngs[i]
         lat = lats[i]
 
         loc = p0(f2m*lng, f2m*lat, inverse=True)
         #point = (str(loc[1]), str(loc[0]))
-        point = (loc[1], loc[0])
+        point = (round(loc[1], 5), round(loc[0], 5))
         point = str(point)
         #print point
         if point in newPoints:
@@ -26,8 +28,12 @@ def convertToMap(planeVertexes):
             newPoints[point] = 1
 
     for k, v in newPoints.items():
-        if v > 1:
+        if v > 2:
             print k
+            k = eval(k)
+            lngs_to_plot.append(k[1])
+            lats_to_plot.append(k[0])
+
         
     
     # print newPoints
@@ -39,7 +45,7 @@ def convertToMap(planeVertexes):
 
     fig = plt.figure()
     ax=fig.add_subplot(111)
-    ax.scatter(lats, lngs, marker = 'o', c = 'blue', alpha=0.5, edgecolors='none')
+    ax.scatter(lngs_to_plot, lats_to_plot, marker = 'o', c = 'blue', alpha=0.5, edgecolors='none')
     plt.show()
     #return (loc[1],loc[0])
 
@@ -47,16 +53,16 @@ def zipBorough(zipfile):
     with open(zipfile, 'rU') as f:
         csvReader = csv.reader(f)
         csvReader.next()
-        dic = {}
-        for row in csvReader:
-            if 'MANHATTAN' in row[1]:
-            	# print row[1]
-            	# print row[0]
-                dic[row[0]] = row[1]
+        # dic = {}
+        # for row in csvReader:
+        #     if 'MANHATTAN' in row[1]:
+        #     	# print row[1]
+        #     	# print row[0]
+        #         dic[row[0]] = row[1]
 
-        return dic 
+        # return dic 
 
-    #return {row[0]:row[1] for row in csvReader if 'MAN' in row[1]}
+        return {row[0]:row[1] for row in csvReader}
 
 def intersections(shapefilename, zipcodes): 
 
@@ -86,9 +92,9 @@ def intersections(shapefilename, zipcodes):
 
             #list_lat.extend(lats)
             list_lng.append(lngs[0])
-            #list_lng.append(lngs[-1])
+            list_lng.append(lngs[-1])
             list_lat.append(lats[0])
-            #list_lat.append(lats[-1])
+            list_lat.append(lats[-1])
 
 
             #list_lng.extend(lngs)
