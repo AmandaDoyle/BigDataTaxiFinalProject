@@ -1,5 +1,6 @@
 import shapefile
 import csv
+import sys
 
 import pyproj as pp
 p0 = pp.Proj(init="esri:102718")
@@ -10,9 +11,9 @@ def convertToMap(planeVertex):
     lat = round(loc[1], 5)
     lng = round(loc[0], 5)
     return (lat, lng)
-    #return (loc[1],loc[0])
 
-shapefilename = sys.argv[0]
+shapefilename = sys.argv[1] ## add directory to .shp file
+
 dat = shapefile.Reader(shapefilename)
 
 sr = dat.shapeRecords()
@@ -43,7 +44,7 @@ for item in dict.items():
 	else:
 		pass 
 
-with open('new.csv', 'wb') as write_file:
+with open('intersections.csv', 'wb') as write_file:
 	file_writer = csv.writer(write_file)
 	for i in dict.items():
 		file_writer.writerow(i[0])
