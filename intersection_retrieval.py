@@ -12,12 +12,8 @@ def convertToMap(planeVertex):
     return (lat, lng)
     #return (loc[1],loc[0])
 
-shapefilename = "/Users/krluna/BigDataTaxiFinalProject/ny_shape/CSCL_PUB_Centerline.shp"
+shapefilename = sys.argv[0]
 dat = shapefile.Reader(shapefilename)
-
-def createdIndex(p, i):
-	return int(p[0]), i 
-
 
 sr = dat.shapeRecords()
 
