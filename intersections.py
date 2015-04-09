@@ -47,16 +47,16 @@ def zipBorough(zipfile):
     with open(zipfile, 'rU') as f:
         csvReader = csv.reader(f)
         csvReader.next()
-        dic = {}
-        for row in csvReader:
-            if 'MANHATTAN' in row[1]:
-            	# print row[1]
-            	# print row[0]
-                dic[row[0]] = row[1]
+        # dic = {}
+        # for row in csvReader:
+        #     if 'MANHATTAN' in row[1]:
+        #     	# print row[1]
+        #     	# print row[0]
+        #         dic[row[0]] = row[1]
 
-        return dic 
+        # return dic 
 
-    #return {row[0]:row[1] for row in csvReader if 'MAN' in row[1]}
+        return {row[0]:row[1] for row in csvReader}
 
 def intersections(shapefilename, zipcodes): 
 
@@ -86,9 +86,9 @@ def intersections(shapefilename, zipcodes):
 
             #list_lat.extend(lats)
             list_lng.append(lngs[0])
-            #list_lng.append(lngs[-1])
+            list_lng.append(lngs[-1])
             list_lat.append(lats[0])
-            #list_lat.append(lats[-1])
+            list_lat.append(lats[-1])
 
 
             #list_lng.extend(lngs)
